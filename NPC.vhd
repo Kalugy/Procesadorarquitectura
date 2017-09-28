@@ -29,27 +29,27 @@ use IEEE.std_logic_unsigned.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC is
-    Port ( inPC : in  STD_LOGIC_VECTOR (31 downto 0);
+entity NPC is
+    Port ( inNPC : in  STD_LOGIC_VECTOR (31 downto 0);
            Reset : in  STD_LOGIC;
            Clk : in  STD_LOGIC;
-           outPC : out  STD_LOGIC_VECTOR (31 downto 0));
-end PC;
+           outNPC : out  STD_LOGIC_VECTOR (31 downto 0));
+end NPC;
 
-architecture arqPC of PC is
+architecture arqNPC of NPC is
 Signal tmp : std_logic_vector(31 downto 0):= "00000000000000000000000000000000";
 
 begin
-	process(Clk,Reset,inPC)
+	process(Clk,Reset,inNPC)
 	begin
 		if(Reset = '1')then
 			tmp<="00000000000000000000000000000000";	
 		elsif(Clk='1')then
-			tmp<=inPC;
+			tmp<=inNPC;
 		end if;
 	end process;
-	outPC <= tmp;
+	outNPC <= tmp;
 
 
-end arqPC;
+end arqNPC;
 
