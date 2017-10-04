@@ -88,20 +88,7 @@ BEGIN
       wait for 100 ns;	
 
 
-		Address <= "00000000000000000000000000000010";
-		Reset <= '0';
 		
-      wait for 100 ns;	
-		
-		Address <= "00000000000000000000000000000011";
-		Reset <= '0';
-		
-      wait for 100 ns;	
-		
-		Address <= "00000000000000000000000000000100";
-		Reset <= '0';
-		
-      wait for 100 ns;	
 
 
       

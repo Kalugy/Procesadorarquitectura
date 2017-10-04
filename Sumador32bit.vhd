@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
+use ieee.std_logic_unsigned.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -35,15 +35,11 @@ Port ( Oper1 : in  STD_LOGIC_VECTOR (31 downto 0);
 end Sumador32bit;
 
 architecture arq_Sumador32bit of Sumador32bit is
-Signal tmp : std_logic_vector(31 downto 0):= "00000000000000000000000000000000";
 
 begin
 	process(Oper1)
 	begin
-		tmp<= Oper1 + "00000000000000000000000000000100";
-	
+		Result<= Oper1 + "00000000000000000000000000000001";
 	end process;
-	Result<= tmp;
-
 end arq_Sumador32bit;
 

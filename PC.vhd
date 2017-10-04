@@ -19,7 +19,6 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_unsigned.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -37,19 +36,14 @@ entity PC is
 end PC;
 
 architecture arqPC of PC is
-Signal tmp : std_logic_vector(31 downto 0):= "00000000000000000000000000000000";
-
 begin
 	process(Clk,Reset,inPC)
 	begin
 		if(Reset = '1')then
-			tmp<="00000000000000000000000000000000";	
-		elsif(Clk='1')then
-			tmp<=inPC;
+			outPC<="00000000000000000000000000000000";	
+		elsif Clk'event AND Clk = '1' then
+			outPC<=inPC;
 		end if;
 	end process;
-	outPC <= tmp;
-
-
 end arqPC;
 

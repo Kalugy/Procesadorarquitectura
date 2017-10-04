@@ -79,11 +79,8 @@ begin
         if (Reset='1') then
 				Instruction <= "00000000000000000000000000000000";
 		  else
-            Instruction <= ROM(conv_integer(Address(5 downto 0)));
-            
+            Instruction <= ROM(conv_integer(Address(5 downto 0)));  
         end if;
     end process;
-
-
 end Arqim;
 

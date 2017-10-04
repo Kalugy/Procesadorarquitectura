@@ -37,19 +37,15 @@ entity NPC is
 end NPC;
 
 architecture arqNPC of NPC is
-Signal tmp : std_logic_vector(31 downto 0):= "00000000000000000000000000000000";
 
 begin
 	process(Clk,Reset,inNPC)
 	begin
 		if(Reset = '1')then
-			tmp<="00000000000000000000000000000000";	
-		elsif(Clk='1')then
-			tmp<=inNPC;
+			outNPC<="00000000000000000000000000000000";	
+		elsif Clk'event AND Clk = '1' then
+			outNPC<=inNPC;
 		end if;
 	end process;
-	outNPC <= tmp;
-
-
 end arqNPC;
 
