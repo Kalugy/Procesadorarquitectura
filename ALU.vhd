@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    15:13:56 09/26/2017 
+-- Create Date:    10:19:49 10/04/2017 
 -- Design Name: 
--- Module Name:    PC - arqPC 
+-- Module Name:    ALU - ARQALU 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -19,32 +19,36 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_unsigned.all;
+
+use ieee.std_logic_unsigned.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC is
-    Port ( inPC : in  STD_LOGIC_VECTOR (31 downto 0);
-           Reset : in  STD_LOGIC;
-           Clk : in  STD_LOGIC;
-           outPC : out  STD_LOGIC_VECTOR (31 downto 0));
-end PC;
+entity ALU is
+    Port ( OPER1 : in  STD_LOGIC_VECTOR (31 downto 0);
+           OPER2 : in  STD_LOGIC_VECTOR (31 downto 0);
+           ALURESULT : out  STD_LOGIC_VECTOR (31 downto 0);
+           ALUOP : in  STD_LOGIC_VECTOR (5 downto 0));
+end ALU;
 
-architecture arqPC of PC is
+architecture ARQALU of ALU is
+
 begin
-	process(Clk,Reset,inPC)
+	process(OPER1,OPER2,ALUOP)
 	begin
-		if(Reset = '1')then
-			outPC<="00000000000000000000000000000000";	
-		elsif Clk'event AND Clk = '1' then
-			outPC<=inPC;
+		if(ALUOP = "000010")then
+			ALURESULT<= OPER1 OR OPER2;
+		elsif(ALUOP = "000000")then
+			ALURESULT<= OPER1 + OPER2;	
+		elsif(ALUOP = "000100")then
+			ALURESULT<= OPER1 - OPER2;		
 		end if;
-	end process;
-end arqPC;
+	end process;	
+end ARQALU;
 

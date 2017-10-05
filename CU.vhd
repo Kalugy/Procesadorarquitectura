@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    15:13:56 09/26/2017 
+-- Create Date:    09:09:48 10/04/2017 
 -- Design Name: 
--- Module Name:    PC - arqPC 
+-- Module Name:    CU - ArqCU 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,22 +29,15 @@ use IEEE.std_logic_unsigned.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC is
-    Port ( inPC : in  STD_LOGIC_VECTOR (31 downto 0);
-           Reset : in  STD_LOGIC;
-           Clk : in  STD_LOGIC;
-           outPC : out  STD_LOGIC_VECTOR (31 downto 0));
-end PC;
+entity CU is
+    Port ( Instruction : in  STD_LOGIC_VECTOR (31 downto 0);
+           ALUOP : out  STD_LOGIC_VECTOR (5 downto 0));
+end CU;
 
-architecture arqPC of PC is
+architecture ArqCU of CU is
+Signal OP3 : std_logic_vector(24 downto 19):= "000000";
+
 begin
-	process(Clk,Reset,inPC)
-	begin
-		if(Reset = '1')then
-			outPC<="00000000000000000000000000000000";	
-		elsif Clk'event AND Clk = '1' then
-			outPC<=inPC;
-		end if;
-	end process;
-end arqPC;
+	ALUOP<=Instruction(24 downto 19);
+end ArqCU;
 

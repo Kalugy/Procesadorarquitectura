@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    15:13:56 09/26/2017 
+-- Create Date:    09:39:43 10/04/2017 
 -- Design Name: 
--- Module Name:    PC - arqPC 
+-- Module Name:    SEU - arqSEU 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -19,32 +19,30 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_unsigned.all;
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity PC is
-    Port ( inPC : in  STD_LOGIC_VECTOR (31 downto 0);
-           Reset : in  STD_LOGIC;
-           Clk : in  STD_LOGIC;
-           outPC : out  STD_LOGIC_VECTOR (31 downto 0));
-end PC;
+entity SEU is
+    Port ( Instruction : in  STD_LOGIC_VECTOR (31 downto 0);
+           OUTSEU : out  STD_LOGIC_VECTOR (31 downto 0));
+end SEU;
 
-architecture arqPC of PC is
+architecture arqSEU of SEU is
 begin
-	process(Clk,Reset,inPC)
-	begin
-		if(Reset = '1')then
-			outPC<="00000000000000000000000000000000";	
-		elsif Clk'event AND Clk = '1' then
-			outPC<=inPC;
+	process(Instruction)
+	begin 
+		if(Instruction(12) = '1')then
+			OUTSEU<= "1111111111111111111" & Instruction(12 downto 0);
+		elsif(Instruction(12) = '0')then
+			OUTSEU<= "0000000000000000000" & Instruction(12 downto 0);
 		end if;
-	end process;
-end arqPC;
+	end process;	
+end arqSEU;
 
