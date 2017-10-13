@@ -25,8 +25,12 @@ begin
     process (rst,rd,rs1,rs2,dwr,RAM)
     begin
              if rst = '1' then
-                    RAM(conv_integer(rd)) <= (others=>'0');
-             elsif rd /= "00000" then 
+                RAM <= (others=>"00000000000000000000000000000000");
+             elsif rd = "00000" then 
+					 RAM(conv_integer(rd)) <= (others=>'0');
+					 crs1 <= RAM(conv_integer(rs1));
+					 crs2 <= RAM(conv_integer(rs2));
+				 else 
 					 RAM(conv_integer(rd)) <= dwr;
                 crs1 <= RAM(conv_integer(rs1));
 					 crs2 <= RAM(conv_integer(rs2));
