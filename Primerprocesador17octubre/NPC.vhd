@@ -43,8 +43,10 @@ begin
 	begin
 		if(Reset = '1')then
 			outNPC<="00000000000000000000000000000000";	
-		elsif Clk'event AND Clk = '1' then
-			outNPC<=inNPC;
+		else 
+			if(rising_edge(Clk)) then
+				outNPC<=inNPC;
+			end if;
 		end if;
 	end process;
 end arqNPC;
