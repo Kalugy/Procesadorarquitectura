@@ -53,7 +53,7 @@ begin
 		elsif(ALUOP = "000001")then
 			ALURESULT<= OPER1 AND OPER2;	
 		elsif(ALUOP = "000101")then
-			ALURESULT<= OPER1 NAND OPER2;			
+			ALURESULT<= OPER1 AND (not OPER2);			
 		elsif(ALUOP = "000110")then
 			ALURESULT<= OPER1 NOR OPER2;
 		elsif(ALUOP = "000111")then
