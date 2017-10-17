@@ -69,35 +69,56 @@ BEGIN
           Clk => Clk,
           outPC => outPC
         );
-
+	
+	-- Clock process definitions
+   Clk_process :process
+   begin
+		Clk <= '0';
+		wait for Clk_period/2;
+		Clk <= '1';
+		wait for Clk_period/2;
+   end process;
+	
    -- Stimulus process
    stim_proc: process
    begin		
       
 		Reset <= '0';
-      Clk <= '0';
       inPC <= "00000000000000000000000000000000";
 		
       wait for 100 ns;	
 		
 		Reset <= '0';
-      Clk <= '1';
       inPC <= "00000000000000000000000000000001";
 		
       wait for 100 ns;	
 		
 		Reset <= '1';
-      Clk <= '0';
       inPC <= "00000000000000000000000000000001";
 		
       wait for 100 ns;
 		
 		Reset <= '1';
-      Clk <= '1';
       inPC <= "00000000000000000000000000000001";
 		
       wait for 100 ns;
 		
+		Reset <= '0';
+      inPC <= "00000000000000000000000000000001";
+		
+      wait for 100 ns;	
+		Reset <= '0';
+      inPC <= "00000000000000000000000000000001";
+		
+      wait for 100 ns;	
+		Reset <= '0';
+      inPC <= "00000000000000000000000000000001";
+		
+      wait for 100 ns;	
+		Reset <= '0';
+      inPC <= "00000000000000000000000000000001";
+		
+      wait for 100 ns;	
 
 
       -- insert stimulus here
