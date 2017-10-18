@@ -1,5 +1,29 @@
 --------------------------------------------------------------------------------
-
+-- Company: 
+-- Engineer:
+--
+-- Create Date:   17:25:10 10/18/2017
+-- Design Name:   
+-- Module Name:   C:/Users/Kalugy/Documents/xilinx/Segundoprocesador/TbEFNEW.vhd
+-- Project Name:  Segundoprocesador
+-- Target Device:  
+-- Tool versions:  
+-- Description:   
+-- 
+-- VHDL Test Bench Created by ISE for module: RF
+-- 
+-- Dependencies:
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+--
+-- Notes: 
+-- This testbench has been automatically generated using types std_logic and
+-- std_logic_vector for the ports of the unit under test.  Xilinx recommends
+-- that these types always be used for the top-level I/O of a design in order
+-- to guarantee that the testbench will bind correctly to the post-implementation 
+-- simulation model.
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -8,18 +32,18 @@ USE ieee.std_logic_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY tb_RF IS
-END tb_RF;
+ENTITY TbEFNEW IS
+END TbEFNEW;
  
-ARCHITECTURE behavior OF tb_RF IS 
+ARCHITECTURE behavior OF TbEFNEW IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
     COMPONENT RF
     PORT(
-         rs1 : IN  std_logic_vector(4 downto 0);
-         rs2 : IN  std_logic_vector(4 downto 0);
-         rd : IN  std_logic_vector(4 downto 0);
+         rs1 : IN  std_logic_vector(5 downto 0);
+         rs2 : IN  std_logic_vector(5 downto 0);
+         rd : IN  std_logic_vector(5 downto 0);
          dwr : IN  std_logic_vector(31 downto 0);
          rst : IN  std_logic;
          crs1 : OUT  std_logic_vector(31 downto 0);
@@ -29,9 +53,9 @@ ARCHITECTURE behavior OF tb_RF IS
     
 
    --Inputs
-   signal rs1 : std_logic_vector(4 downto 0) := (others => '0');
-   signal rs2 : std_logic_vector(4 downto 0) := (others => '0');
-   signal rd : std_logic_vector(4 downto 0) := (others => '0');
+   signal rs1 : std_logic_vector(5 downto 0) := (others => '0');
+   signal rs2 : std_logic_vector(5 downto 0) := (others => '0');
+   signal rd : std_logic_vector(5 downto 0) := (others => '0');
    signal dwr : std_logic_vector(31 downto 0) := (others => '0');
    signal rst : std_logic := '0';
 
@@ -40,6 +64,8 @@ ARCHITECTURE behavior OF tb_RF IS
    signal crs2 : std_logic_vector(31 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
+ 
+   
  
 BEGIN
  
@@ -54,7 +80,8 @@ BEGIN
           crs2 => crs2
         );
 
-
+   -- Clock process definitions
+  
  
 
    -- Stimulus process
@@ -63,53 +90,57 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 		
-		rs1<="00001";
-		rs2<="00000";
-		rd<="00010";
+		rs1<="000001";
+		rs2<="000000";
+		rd<="000010";
 		dwr<="00010000000000011100000000000000";
 		rst<='1';
       wait for 200 ns;
-		rs1<="00010";
-		rs2<="00000";
-		rd<="00001";
+		rs1<="000010";
+		rs2<="000000";
+		rd<="000001";
 		dwr<="00010000000000000000000000000111";
 		rst<='0';
       wait for 200 ns;
-		rs1<="00001";
-		rs2<="00000";
-		rd<="10000";
+		rs1<="000001";
+		rs2<="000000";
+		rd<="010000";
 		dwr<="00010000000000000000000000000000";
 		rst<='0';
 		wait for 200 ns;
-		rs1<="00000";
-		rs2<="00100";
-		rd<="00100";
+		rs1<="000000";
+		rs2<="000100";
+		rd<="000100";
 		dwr<="00010000000000000000000000000000";
 		rst<='0';
 		wait for 200 ns;
-		rs1<="00001";
-		rs2<="00100";
-		rd<="00011";
+		rs1<="000001";
+		rs2<="000100";
+		rd<="000011";
 		dwr<="00010000000000000000000000000001";
 		rst<='0';
 		wait for 200 ns;
-		rs1<="00001";
-		rs2<="00100";
-		rd<="00011";
+		rs1<="000001";
+		rs2<="000100";
+		rd<="000011";
 		dwr<="00010000000000000000000000000001";
 		rst<='1';
 		wait for 200 ns;
-		rs1<="00001";
-		rs2<="10000";
-		rd<="00011";
+		rs1<="000001";
+		rs2<="010000";
+		rd<="000011";
 		dwr<="00010000000000000000000000000001";
 		rst<='0';
 		wait for 200 ns;
-		rs1<="00100";
-		rs2<="00011";
-		rd<="00000";
+		rs1<="000100";
+		rs2<="000011";
+		rd<="000000";
 		dwr<="00010000000000000000000000000001";
 		rst<='0';
+      -- insert stimulus here 
+
+     
+
       -- insert stimulus here 
 
       wait;

@@ -7,9 +7,9 @@ use IEEE.numeric_std.all;
 use IEEE.std_logic_unsigned.all;
 
 entity RF is
-    Port ( rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
-           rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
-           rd : in  STD_LOGIC_VECTOR (4 downto 0);
+    Port ( rs1 : in  STD_LOGIC_VECTOR (5 downto 0);
+           rs2 : in  STD_LOGIC_VECTOR (5 downto 0);
+           rd : in  STD_LOGIC_VECTOR (5 downto 0);
            dwr : in  STD_LOGIC_VECTOR (31 downto 0);
            rst : in  STD_LOGIC;
            crs1 : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -18,7 +18,7 @@ end RF;
 
 architecture Behavioral of RF is
 
-type ram_type is array (31 downto 0) of std_logic_vector (31 downto 0);
+type ram_type is array (39 downto 0) of std_logic_vector (31 downto 0);
     signal RAM: ram_type;
 begin
 	 RAM(0)<= "00000000000000000000000000000000";
