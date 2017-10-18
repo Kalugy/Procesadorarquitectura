@@ -10,9 +10,9 @@ entity WindowsManager is
            op : in  STD_LOGIC_VECTOR (1 downto 0);
            op3 : in  STD_LOGIC_VECTOR (5 downto 0);
            cwpout : out  STD_LOGIC;
-           rs1out : out  STD_LOGIC_VECTOR (4 downto 0);
-           rs2out : out  STD_LOGIC_VECTOR (4 downto 0);
-           rdout : out  STD_LOGIC_VECTOR (4 downto 0):=(others=>'0'));
+           rs1out : out  STD_LOGIC_VECTOR (5 downto 0);
+           rs2out : out  STD_LOGIC_VECTOR (5 downto 0);
+           rdout : out  STD_LOGIC_VECTOR (5 downto 0):=(others=>'0'));
 end WindowsManager;
 architecture Behavioral of WindowsManager is
 signal int_rs1, int_rs2, int_rd : integer range 0 to 39 := 0;

@@ -14,10 +14,11 @@ end PSR;
 architecture Behavioral of PSR is
 
 begin
-	
+process(clk,nzvc,ncwp)
 	if(rising_edge(clk))then
 		c<=nzvc(0);
 		cwp<=ncwp;
 	end if;	
+end process;	
 end Behavioral;
 

@@ -104,6 +104,7 @@ COMPONENT ALU
 	PORT(
 			  OPER1 : in  STD_LOGIC_VECTOR (31 downto 0);
            OPER2 : in  STD_LOGIC_VECTOR (31 downto 0);
+			  c in  STD_LOGIC;
            ALURESULT : out  STD_LOGIC_VECTOR (31 downto 0);
            ALUOP : in  STD_LOGIC_VECTOR (5 downto 0)
            	
@@ -111,9 +112,9 @@ COMPONENT ALU
 	END COMPONENT;		
 COMPONENT RF
 	PORT(
-			  rs1 : in  STD_LOGIC_VECTOR (5 downto 0);
-           rs2 : in  STD_LOGIC_VECTOR (5 downto 0);
-           rd : in  STD_LOGIC_VECTOR (5 downto 0);
+			  rs1 : in  STD_LOGIC_VECTOR (6 downto 0);
+           rs2 : in  STD_LOGIC_VECTOR (6 downto 0);
+           rd : in  STD_LOGIC_VECTOR (6 downto 0);
            dwr : in  STD_LOGIC_VECTOR (31 downto 0);
            rst : in  STD_LOGIC;
            crs1 : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -124,13 +125,16 @@ COMPONENT RF
 	
 COMPONENT Windowsmanager
 	PORT(
-			  rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
+			  cwp : in  STD_LOGIC;
+           rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
            rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
            rd : in  STD_LOGIC_VECTOR (4 downto 0);
            op : in  STD_LOGIC_VECTOR (1 downto 0);
            op3 : in  STD_LOGIC_VECTOR (5 downto 0);
-           cwp : in  STD_LOGIC;
-           ncwp : out  STD_LOGIC
+           cwpout : out  STD_LOGIC;
+           rs1out : out  STD_LOGIC_VECTOR (5 downto 0);
+           rs2out : out  STD_LOGIC_VECTOR (5 downto 0);
+           rdout : out  STD_LOGIC_VECTOR (5 downto 0):=(others=>'0')
            	
 		);
 	END COMPONENT;		
@@ -159,7 +163,10 @@ COMPONENT PSR_Modifier
 
 signal aux1,aux2,aux3,aux4,aux6,aux7,aux8,aux9,aux10: std_logic_vector(31 downto 0);
 signal aux5: std_logic_vector(5 downto 0);
-
+signal aux13,aux14,aux15: std_logic_vector(5 downto 0);
+signal aux11,aux12: STD_LOGIC_VECTOR (1 downto 0);
+signal aux16: STD_LOGIC_VECTOR (3 downto 0);
+signal aux17: STD_LOGIC;
 begin
 
 	U0: NPC PORT MAP(
@@ -220,6 +227,7 @@ begin
 	
 			  OPER1 => aux8,
            OPER2 => aux9,
+			  c =>aux17,
            ALURESULT => aux10,
            ALUOP => aux5
          
@@ -227,9 +235,9 @@ begin
 
 	U8: RF PORT MAP(
 	
-			  rs1 => aux4(18 downto 14),
-           rs2 => aux4(4 downto 0),
-           rd => aux4(29 downto 25),
+			  rs1 => aux13,
+           rs2 => aux14,
+           rd => aux15,
            dwr => aux10,
            rst => Resetext,
            crs1 => aux8,
@@ -239,36 +247,36 @@ begin
 	Adressext<=aux10;
 	
 	U9: Windowsmanager PORT MAP(
-	
+		
+			  cwp =>aux12;
 			  rs1 =>aux4(18 downto 14),
            rs2 =>aux4(4 downto 0),
            rd =>aux4(29 downto 25),
            op =>aux4(31 downto 30),
            op3 =>aux4(18 downto 14),
-           cwp =>
-           ncwp =>
+           
+           cwpout=> aux11,
+           rs1out=>aux13,
+           rs2out=> aux14,
+           rdout=> aux15
          
 	);
 	U10: PSR PORT MAP(
 	
-			  rs1 => aux4(18 downto 14),
-           rs2 => aux4(4 downto 0),
-           rd => aux4(29 downto 25),
-           dwr => aux10,
-           rst => Resetext,
-           crs1 => aux8,
-           crs2 => aux7
+			  nzvc => aux16,
+			  clk => Clkinext,
+			  cwp => aux12,
+			  ncwp => aux11,
+           c => aux17,
          
 	);
 	U11: PSR_Modifier PORT MAP(
 	
-			  rs1 => aux4(18 downto 14),
-           rs2 => aux4(4 downto 0),
-           rd => aux4(29 downto 25),
-           dwr => aux10,
-           rst => Resetext,
-           crs1 => aux8,
-           crs2 => aux7
+			  oper1 => aux8,
+           oper2 => aux9,
+           aluop => aux5,
+           aluResult => aux10,
+           conditionalCodes => aux16
          
 	);
 	
