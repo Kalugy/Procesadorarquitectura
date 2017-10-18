@@ -14,9 +14,9 @@ ARCHITECTURE behavior OF TBWindowsManager IS
          op : IN  std_logic_vector(1 downto 0);
          op3 : IN  std_logic_vector(5 downto 0);
          cwpout : OUT  std_logic;
-         rs1out : OUT  std_logic_vector(4 downto 0);
-         rs2out : OUT  std_logic_vector(4 downto 0);
-         rdout : OUT  std_logic_vector(4 downto 0)
+         rs1out : OUT  std_logic_vector(5 downto 0);
+         rs2out : OUT  std_logic_vector(5 downto 0);
+         rdout : OUT  std_logic_vector(5 downto 0)
         );
     END COMPONENT;
    --Inputs
@@ -28,9 +28,9 @@ ARCHITECTURE behavior OF TBWindowsManager IS
    signal op3 : std_logic_vector(5 downto 0) := (others => '0');
  	--Outputs
    signal cwpout : std_logic;
-   signal rs1out : std_logic_vector(4 downto 0);
-   signal rs2out : std_logic_vector(4 downto 0);
-   signal rdout : std_logic_vector(4 downto 0);
+   signal rs1out : std_logic_vector(5 downto 0);
+   signal rs2out : std_logic_vector(5 downto 0);
+   signal rdout : std_logic_vector(5 downto 0);
 BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: WindowsManager PORT MAP (
@@ -43,7 +43,7 @@ BEGIN
           cwpout => cwpout,
           rs1out => rs1out,
           rs2out => rs2out,
-          rdout => rdout
+          rdout => rdout 
         );
    -- Stimulus process
    stim_proc: process
@@ -75,8 +75,15 @@ BEGIN
 		rs1 <= "00000";
 		rs2 <= "00000";
 		rd <= "00000";
-		op <=	"00";
-		op3 <= "111101";
-      wait;
+		op <= "00";
+		op3 <= "000000";
+		wait for 50 ns;	
+		cwp <= '0';
+		rs1 <= "10000";
+		rs2 <= "10001";
+		rd <= "10010";
+		op <= "10";
+		op3 <= "000000";
+		wait for 50 ns;
    end process;
 END;

@@ -18,6 +18,6 @@ begin
 	if(rising_edge(clk))then
 		c<=nzvc(0);
 		cwp<=ncwp;
-		
+	end if;	
 end Behavioral;
 
