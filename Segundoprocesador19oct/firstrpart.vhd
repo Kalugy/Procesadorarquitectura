@@ -111,9 +111,9 @@ COMPONENT ALU
 	END COMPONENT;		
 COMPONENT RF
 	PORT(
-			  rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
-           rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
-           rd : in  STD_LOGIC_VECTOR (4 downto 0);
+			  rs1 : in  STD_LOGIC_VECTOR (5 downto 0);
+           rs2 : in  STD_LOGIC_VECTOR (5 downto 0);
+           rd : in  STD_LOGIC_VECTOR (5 downto 0);
            dwr : in  STD_LOGIC_VECTOR (31 downto 0);
            rst : in  STD_LOGIC;
            crs1 : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -122,6 +122,39 @@ COMPONENT RF
 		);
 	END COMPONENT;		
 	
+COMPONENT Windowsmanager
+	PORT(
+			  rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
+           rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
+           rd : in  STD_LOGIC_VECTOR (4 downto 0);
+           op : in  STD_LOGIC_VECTOR (1 downto 0);
+           op3 : in  STD_LOGIC_VECTOR (5 downto 0);
+           cwp : in  STD_LOGIC;
+           ncwp : out  STD_LOGIC
+           	
+		);
+	END COMPONENT;		
+COMPONENT PSR
+	PORT(
+			  nzvc : in  STD_LOGIC_VECTOR (3 downto 0);
+			  clk : in  STD_LOGIC_VECTOR ;
+			  cwp : out  STD_LOGIC_VECTOR (1 downto 0);
+			  ncwp : in  STD_LOGIC_VECTOR (1 downto 0);
+           c : out  STD_LOGIC
+           	
+		);
+	END COMPONENT;	
+	
+COMPONENT PSR_Modifier
+	PORT(
+			  oper1 : in  STD_LOGIC_VECTOR (31 downto 0);
+           oper2 : in  STD_LOGIC_VECTOR (31 downto 0);
+           aluop : in  STD_LOGIC_VECTOR (5 downto 0);
+           aluResult : in  STD_LOGIC_VECTOR (31 downto 0);
+           conditionalCodes : out  STD_LOGIC_VECTOR (3 downto 0)
+           	
+		);
+	END COMPONENT;		
 	
 
 signal aux1,aux2,aux3,aux4,aux6,aux7,aux8,aux9,aux10: std_logic_vector(31 downto 0);
@@ -204,5 +237,40 @@ begin
          
 	);
 	Adressext<=aux10;
+	
+	U9: Windowsmanager PORT MAP(
+	
+			  rs1 =>aux4(18 downto 14),
+           rs2 =>aux4(4 downto 0),
+           rd =>aux4(29 downto 25),
+           op =>aux4(31 downto 30),
+           op3 =>aux4(18 downto 14),
+           cwp =>
+           ncwp =>
+         
+	);
+	U10: PSR PORT MAP(
+	
+			  rs1 => aux4(18 downto 14),
+           rs2 => aux4(4 downto 0),
+           rd => aux4(29 downto 25),
+           dwr => aux10,
+           rst => Resetext,
+           crs1 => aux8,
+           crs2 => aux7
+         
+	);
+	U11: PSR_Modifier PORT MAP(
+	
+			  rs1 => aux4(18 downto 14),
+           rs2 => aux4(4 downto 0),
+           rd => aux4(29 downto 25),
+           dwr => aux10,
+           rst => Resetext,
+           crs1 => aux8,
+           crs2 => aux7
+         
+	);
+	
 end arqfirstrpart;
 
