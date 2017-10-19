@@ -2,10 +2,10 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   21:58:40 10/03/2017
+-- Create Date:   21:28:33 10/18/2017
 -- Design Name:   
--- Module Name:   C:/Users/Kalugy/Documents/xilinx/procesadordefinitivo/Tbfirstpart.vhd
--- Project Name:  procesadordefinitivo
+-- Module Name:   C:/Users/Kalugy/Documents/xilinx/secondooooooooo/Tbfirstpartnew.vhd
+-- Project Name:  secondooooooooo
 -- Target Device:  
 -- Tool versions:  
 -- Description:   
@@ -32,10 +32,10 @@ USE ieee.std_logic_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY Tbfirstpart IS
-END Tbfirstpart;
+ENTITY Tbfirstpartnew IS
+END Tbfirstpartnew;
  
-ARCHITECTURE behavior OF Tbfirstpart IS 
+ARCHITECTURE behavior OF Tbfirstpartnew IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -113,6 +113,9 @@ BEGIN
 		
 		Resetext <= '0';
       wait for 100 ns;	
+
+
+      -- insert stimulus here 
 
 
       -- insert stimulus here 

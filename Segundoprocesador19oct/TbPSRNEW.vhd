@@ -2,15 +2,15 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   09:26:49 10/04/2017
+-- Create Date:   21:06:56 10/18/2017
 -- Design Name:   
--- Module Name:   C:/Users/Kalugy/Documents/xilinx/procesadordefinitivo/TBCU.vhd
--- Project Name:  procesadordefinitivo
+-- Module Name:   C:/Users/Kalugy/Documents/xilinx/secondooooooooo/TbPSRNEW.vhd
+-- Project Name:  secondooooooooo
 -- Target Device:  
 -- Tool versions:  
 -- Description:   
 -- 
--- VHDL Test Bench Created by ISE for module: CU
+-- VHDL Test Bench Created by ISE for module: PSR
 -- 
 -- Dependencies:
 -- 
@@ -32,60 +32,71 @@ USE ieee.std_logic_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY TBCU IS
-END TBCU;
+ENTITY TbPSRNEW IS
+END TbPSRNEW;
  
-ARCHITECTURE behavior OF TBCU IS 
+ARCHITECTURE behavior OF TbPSRNEW IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT CU
+    COMPONENT PSR
     PORT(
-         Instruction : IN  std_logic_vector(31 downto 0);
-         ALUOP : OUT  std_logic_vector(5 downto 0)
+         nzvc : IN  std_logic_vector(3 downto 0);
+         clk : IN  std_logic;
+         cwp : OUT  std_logic;
+         ncwp : IN  std_logic;
+         c : OUT  std_logic
         );
     END COMPONENT;
     
 
    --Inputs
-   signal Instruction : std_logic_vector(31 downto 0) := (others => '0');
+   signal nzvc : std_logic_vector(3 downto 0) := (others => '0');
+   signal clk : std_logic := '0';
+   signal ncwp : std_logic := '0';
 
  	--Outputs
-   signal ALUOP : std_logic_vector(5 downto 0);
-   -- No clocks detected in port list. Replace <clock> below with 
-   -- appropriate port name 
- 
-   
+   signal cwp : std_logic;
+   signal c : std_logic;
+
+   -- Clock period definitions
+   constant clk_period : time := 10 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: CU PORT MAP (
-          Instruction => Instruction,
-          ALUOP => ALUOP
+   uut: PSR PORT MAP (
+          nzvc => nzvc,
+          clk => clk,
+          cwp => cwp,
+          ncwp => ncwp,
+          c => c
         );
 
-   
+   -- Clock process definitions
+   clk_process :process
+   begin
+		clk <= '0';
+		wait for clk_period/2;
+		clk <= '1';
+		wait for clk_period/2;
+   end process;
  
 
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
-		Instruction <= "00000000000000000000000000000000";
-		
+		-- hold reset state for 100 ns.
       wait for 100 ns;	
-
-		Instruction <= "00001000000000000000000000000000";
-		
-      wait for 100 ns;	
-		Instruction <= "00000000100000000000000000000000";
-		
-      wait for 100 ns;	
-		Instruction <= "00001111100000000000000000000000";
-		
-      wait for 100 ns;	
-		
+		nzvc<="1111";
+		ncwp<='0';
+		wait for 100 ns;	
+		nzvc<="1100";
+		ncwp<='1';
+		wait for 100 ns;	
+		nzvc<="1101";
+		ncwp<='0';
+		wait for 100 ns;
 
       -- insert stimulus here 
 
