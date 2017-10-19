@@ -60,7 +60,7 @@ begin
 				int_rd <= conv_integer(rd);  --global
 			end if;		
 	end process;
-	rs1out <= conv_std_logic_vector(int_rs1, 5);
-	rs2out <= conv_std_logic_vector(int_rs2, 5);
-	rdout <= conv_std_logic_vector(int_rd, 5);
+	rs1out <= conv_std_logic_vector(int_rs1, 6);
+	rs2out <= conv_std_logic_vector(int_rs2, 6);
+	rdout <= conv_std_logic_vector(int_rd, 6);
 end Behavioral;

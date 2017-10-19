@@ -28,7 +28,7 @@ begin
                 RAM <= (others=>"00000000000000000000000000000000");
 					 crs1 <="00000000000000000000000000000000";
 					 crs2 <="00000000000000000000000000000000";
-             elsif rd /= "00000" then 
+             elsif rd /= "000000" then 
 					 RAM(conv_integer(rd)) <= dwr;
 					 crs1 <= RAM(conv_integer(rs1));
 					 crs2 <= RAM(conv_integer(rs2));

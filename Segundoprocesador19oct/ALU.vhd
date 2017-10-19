@@ -43,23 +43,65 @@ architecture ARQALU of ALU is
 begin
 	process(OPER1,OPER2,ALUOP)
 	begin
-		if(ALUOP = "000010")then
-			ALURESULT<= OPER1 OR OPER2;
-		elsif(ALUOP = "000011")then
-			ALURESULT<= OPER1 XOR OPER2;		
-		elsif(ALUOP = "000000")then
-			ALURESULT<= OPER1 + OPER2;	
-		elsif(ALUOP = "000100")then
-			ALURESULT<= OPER1 - OPER2;		
-		elsif(ALUOP = "000001")then
-			ALURESULT<= OPER1 AND OPER2;	
-		elsif(ALUOP = "000101")then
-			ALURESULT<= OPER1 AND (not OPER2);			
-		elsif(ALUOP = "000110")then
-			ALURESULT<= OPER1 NOR OPER2;
-		elsif(ALUOP = "000111")then
-			ALURESULT<= OPER1 XNOR OPER2;	
-		end if;
-	end process;	
+	case (ALUOP) is
+                  when "000000" => -- add 
+								ALURESULT <= OPER1 + OPER2;
+                  when "000001" =>--AND
+								ALURESULT <= OPER1 and OPER2;
+						when "000010" =>--OR
+								ALURESULT <= OPER1 or OPER2;
+						when "000011" =>--xor
+								ALURESULT <= OPER1 xor OPER2;
+						when "000111" =>--xnor
+								ALURESULT <= OPER1 xnor OPER2;
+						when  "000100"=>--Sub
+								ALURESULT <= OPER1 - OPER2;
+						when "000101"=>--and not
+								ALURESULT<=OPER1 and not OPER2;
+						when "000110"=>--nor
+								ALURESULT<= OPER1 or not OPER2;
+								
+						when "010000"=>--addcc
+								ALURESULT <= OPER1 + OPER2;
+						when "010100"=>--subcc
+								ALURESULT <= OPER1 - OPER2;
+						when "010001" =>--andcc
+								ALURESULT<= OPER1 and OPER2;
+						when "010101" =>--andncc
+								ALURESULT<= OPER1 and not OPER2;
+						when "010010" => --orcc
+								ALURESULT <= OPER1 or OPER2;
+						when "010110" =>--orncc
+								ALURESULT <= OPER1 or not OPER2;
+						when "001000"=>--addx
+								ALURESULT <= OPER1 + OPER2 + c;
+						when "011000" =>--addxcc
+								ALURESULT <= OPER1 + OPER2 + c;
+						when "001100" => --subx
+								ALURESULT <= OPER1- OPER2 - c;
+						when "011100" => --subxcc
+								ALURESULT <= OPER1 - OPER2 - c;
+								
+						when "010011" => --xorcc
+								ALURESULT <=  OPER1 xor OPER2;
+							when "010111" => --xnorcc
+								ALURESULT <=  OPER1 xor OPER2;		
+						when "100101" => --sll
+								ALURESULT <= to_stdlogicvector(to_bitvector(OPER1) sll conv_integer(OPER2));
+						
+						when "100110" => --srl
+								ALURESULT <= to_stdlogicvector(to_bitvector(OPER1) srl conv_integer(OPER2));		
+						
+						when "111100" => --save
+								ALURESULT <= OPER1 + OPER2;
+						
+						when "111101" => --restore
+								ALURESULT <= OPER1 + OPER2;
+					
+				    	when others => --nops
+				          ALURESULT<= x"00000000";
+	
+				end case;	
+	  end process; 
 end ARQALU;
 
