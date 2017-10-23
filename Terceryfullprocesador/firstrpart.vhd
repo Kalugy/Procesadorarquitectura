@@ -232,14 +232,14 @@ COMPONENT MuxDM
 	END COMPONENT;		
 	
 
-signal a1,a2,a3,a4,a5,a25,a18,a19,a20,a21,a22,a23,a24,a10,a31,a25: std_logic_vector(31 downto 0);
+signal a1,a2,a3,a4,a5,a18,a19,a20,a21,a22,a23,a24,a10,a31,a25: std_logic_vector(31 downto 0);
 
 --ventanas
 signal a6,a7: STD_LOGIC;
 --nrs1,
 signal a8,a9,a26,a27,a16: std_logic_vector(5 downto 0);
 
-signal a11,a12,a15,a29: STD_LOGIC;
+signal a11,a12,a14,a15,a29: STD_LOGIC;
 
 signal a30,a28: std_logic_vector(3 downto 0);
 
@@ -401,7 +401,7 @@ begin
            Disp22 => a10,
            PC1 => a3,
            Direccion => a23,
-           Selector => a16,
+           Selector => a17,
 			  Direccion_Out => a1
          
 	);
