@@ -302,7 +302,7 @@ begin
 	
 			  rs1 => a9,
            rs2 => a26,
-           rd => a8,
+           rd => a27,
            dwr => a25,
            rst => Resetext,
 			  wre => a11,
