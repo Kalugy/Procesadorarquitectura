@@ -33,20 +33,20 @@ end DataMemory;
 
 architecture Behavioral of DataMemory is
 
-type reg is array (0 to 519) of std_logic_vector (31 downto 0);
+type reg is array (0 to 39) of std_logic_vector (31 downto 0);
 signal myReg : reg := (others => x"00000000");
 
 begin
 
-process(cRD,AluResult,Reset,WRENMEM) begin
-	if (Reset = '1') then
-		myReg <= (others => x"00000000");
-	else 
-		if (WRENMEM = '1') then
-			myReg(conv_integer(AluResult)) <= cRD;
-		end if;
-		if(520>AluResult) then
-			DataMem <= myReg(conv_integer(AluResult));
+process(cRD,AluResult,Reset,WRENMEM)
+begin
+	if (Reset='1') then
+		DataMem <= x"00000000";
+	else
+		if (WRENMEM='1') then
+			myReg(conv_integer(AluResult(4 downto 0))) <= cRD;
+		else
+			DataMem <= myReg(conv_integer(AluResult(4 downto 0)));
 		end if;
 	end if;
 end process;

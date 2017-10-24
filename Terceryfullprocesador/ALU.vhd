@@ -100,11 +100,9 @@ begin
 						when "011011" => -- jmpl
 							ALURESULT <=OPER1 + OPER2;
 							
-						when "111110" => --st
+						when "111110" => --st y --ld
 							ALURESULT <= OPER1 + OPER2;
-						when "111110" => --ld
-							ALURESULT <=OPER1 + OPER2;
-									when others => --nops
+						when others => --nops
 				          ALURESULT<= x"00000000";
 	
 				end case;	

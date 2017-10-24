@@ -48,10 +48,10 @@ begin
 begin
 	case Selector is
 		
-		when "00" => Direccion_Out <= Direccion;
-		when "01" => Direccion_Out <= Disp30;
-		when "10" => Direccion_Out <= Disp22;
-		when "11" => Direccion_Out <= PC1;
+		when "00" => Direccion_Out <= Disp30;
+		when "01" => Direccion_Out <= Disp22;
+		when "10" => Direccion_Out <= PC1;
+		when "11" => Direccion_Out <= Direccion;
 		when others => Direccion_Out <= PC1;
 		
 	end case;

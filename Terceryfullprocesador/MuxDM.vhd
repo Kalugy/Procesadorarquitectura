@@ -47,11 +47,11 @@ architecture Behavioral of MuxDM is
 begin
 process (DataMem,AluResult,PC,RFSC) begin
 		case (RFSC) is 
-		when "11" => 
+		when "00" => 
 		DWR <= DataMem;
-		when "00" =>
-		DWR <= AluResult;
 		when "01" =>
+		DWR <= AluResult;
+		when "10" =>
 		DWR <= PC;
 		when others => 
 			DWR <= AluResult;

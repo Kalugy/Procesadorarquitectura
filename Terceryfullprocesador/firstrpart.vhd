@@ -40,6 +40,7 @@ architecture arqfirstrpart of firstrpart is
 COMPONENT Sumador32bit
 	PORT(
 			  Oper1 : in  STD_LOGIC_VECTOR (31 downto 0);
+			  Oper2 : in  STD_LOGIC_VECTOR (31 downto 0);
            Result : out  STD_LOGIC_VECTOR (31 downto 0)
            	
 		);
@@ -81,13 +82,12 @@ COMPONENT UnidadControl
            op2 : in  STD_LOGIC_VECTOR (2 downto 0);
            cond : in  STD_LOGIC_VECTOR (3 downto 0);
            icc : in  STD_LOGIC_VECTOR (3 downto 0);
-           HabilitadorMemoria : out  STD_LOGIC;
-           Rfdest : out  STD_LOGIC;
-           Rfsource : out  STD_LOGIC_VECTOR (1 downto 0);
-           Pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
-           EscrituraMem : out  STD_LOGIC;
-			  EscrituraRF : out  STD_LOGIC;
-           Aluop : out  STD_LOGIC_VECTOR (5 downto 0)
+           rfDest : out  STD_LOGIC;
+			  rfSource : out  STD_LOGIC_VECTOR (1 downto 0);
+			  wrEnMem : out  STD_LOGIC;
+           wrEnRF : out  STD_LOGIC;	
+			  pcSource : out STD_LOGIC_VECTOR (1 downto 0);
+           AluOp : out  STD_LOGIC_VECTOR (5 downto 0)
            	
 		);
 	END COMPONENT;	
@@ -232,7 +232,7 @@ COMPONENT MuxDM
 	END COMPONENT;		
 	
 
-signal a1,a2,a3,a4,a5,a18,a19,a20,a21,a22,a23,a24,a10,a31,a25: std_logic_vector(31 downto 0);
+signal a1,a2,a3,a4,a5,a18,a19,a20,a21,a22,a23,a24,a10,a31,a25,a32,a33: std_logic_vector(31 downto 0);
 
 --ventanas
 signal a6,a7: STD_LOGIC;
@@ -271,7 +271,24 @@ begin
 	ints_sum: Sumador32bit PORT MAP(
 	
 			  Oper1 => a2,
+			  Oper2 =>"00000000000000000000000000000001",
            Result => a3
+          
+	);
+	
+	ints_sumdisp30: Sumador32bit PORT MAP(
+	
+			  Oper1 => a31,
+			  Oper2 => a5,
+           Result => a33
+          
+	);
+	
+	ints_sumdisp22: Sumador32bit PORT MAP(
+	
+			  Oper1 => a10,
+			  Oper2 => a5,
+           Result => a32
           
 	);
 	
@@ -327,14 +344,12 @@ begin
            op2 =>a4(24 downto 22),
            cond =>a4(28 downto 25),
            icc =>a30,
-           HabilitadorMemoria =>a11,
-           Rfdest =>a12,
-           Rfsource =>a13,
-           Pcsource =>a17,
-           EscrituraMem =>a14,
-			  EscrituraRF =>a15,
-           Aluop =>a16
-			  
+           rfDest  =>a12,
+			  rfSource =>a13,
+			  wrEnMem =>a14,
+           wrEnRF =>a11,	
+			  pcSource =>a17,
+           AluOp =>a16
 			  
           
 	);
@@ -397,8 +412,8 @@ begin
 	);
 	ints_muxPC: MuxPC PORT MAP(
 	
-			  Disp30 => a31,
-           Disp22 => a10,
+			  Disp30 => a33,
+           Disp22 => a32,
            PC1 => a3,
            Direccion => a23,
            Selector => a17,

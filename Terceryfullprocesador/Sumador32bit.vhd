@@ -31,6 +31,7 @@ use ieee.std_logic_unsigned.all;
 
 entity Sumador32bit is
 Port ( Oper1 : in  STD_LOGIC_VECTOR (31 downto 0);
+			Oper2 : in  STD_LOGIC_VECTOR (31 downto 0);
            Result : out  STD_LOGIC_VECTOR (31 downto 0));
 end Sumador32bit;
 
@@ -39,7 +40,7 @@ architecture arq_Sumador32bit of Sumador32bit is
 begin
 	process(Oper1)
 	begin
-		Result<= Oper1 + "00000000000000000000000000000001";
+		Result<= Oper1 + Oper2;
 	end process;
 end arq_Sumador32bit;
 
