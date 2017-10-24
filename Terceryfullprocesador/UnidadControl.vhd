@@ -28,12 +28,13 @@ entity UnidadControl is
            op2 : in  STD_LOGIC_VECTOR (2 downto 0);
            cond : in  STD_LOGIC_VECTOR (3 downto 0);
            icc : in  STD_LOGIC_VECTOR (3 downto 0);
-           HabilitadorMemoria : out  STD_LOGIC;
+           
            Rfdest : out  STD_LOGIC;
            Rfsource : out  STD_LOGIC_VECTOR (1 downto 0);
            Pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
-           EscrituraMem : out  STD_LOGIC;
-			  EscrituraRF : out  STD_LOGIC;
+           WEENMEM : out  STD_LOGIC;
+			  RDENMEM : out  STD_LOGIC;
+			  WE : out  STD_LOGIC;
            Aluop : out  STD_LOGIC_VECTOR (5 downto 0));
 end UnidadControl;
 
@@ -45,11 +46,11 @@ begin
 	
 	if(op = "01") then -- call
 		Pcsource <= "01"; --salto disp 30
-		EscrituraRF <= '1';
-		Rfsource <= "10";
-		HabilitadorMemoria <= '0';
+		WE <= '1';
+		Rfsource <= "01";
+		WEENMEM <= '0';
 		Rfdest <= '1';
-		EscrituraMem <= '0';
+		RDENMEM <= '0';
 		Aluop <= "111111";
 	else
 		if(op = "00") then
@@ -353,7 +354,7 @@ begin
 						Rfsource <= "01"; -- Resultado operacion
 						Rfdest <= '0'; -- No importa este Valor pues no se permitira escritura en el Register File
 						EscrituraMem <= '0'; -- El dato es leido de memoria pero no se toma en cuenta
-						Aluop <= "000001"; --resta
+						Aluop <= "000100"; --resta
 					when "000001" => 
 						Pcsource <= "11"; -- salto pc
 						EscrituraRF <= '1';
@@ -361,7 +362,7 @@ begin
 						Rfsource <= "01"; -- Resultado operacion
 						Rfdest <= '0'; -- No importa este Valor pues no se permitira escritura en el Register File
 						EscrituraMem <= '0'; -- El dato es leido de memoria pero no se toma en cuenta
-						Aluop <= "000010"; --and
+						Aluop <= "000001"; --and
 					when "000010" => 
 						Pcsource <= "11"; -- salto pc
 						EscrituraRF <= '1';
@@ -558,7 +559,7 @@ begin
 							Rfsource <= "01"; -- No importa porque no se va a guardar en el Register File
 							Rfdest <= '0'; -- No importa este Valor pues no se permitira escritura en el Register File
 							EscrituraMem <= '1'; --  El dato es escrito en Memoria de Datos
-							Aluop <= "111111";
+							Aluop <= "111110";
 						when "000000" => --load
 							Pcsource <= "11"; -- salto pc
 							EscrituraRF <= '1';
@@ -566,7 +567,7 @@ begin
 							Rfsource <= "00"; -- Se debe guardar lo que se carga de la Memoria de Datos
 							Rfdest <= '0'; -- No importa este Valor pues no se permitira escritura en el Register File
 							EscrituraMem <= '0'; --  El dato no es escrito en Memoria de Datos
-							Aluop <= "111111";
+							Aluop <= "111110";
 						when others =>
 							Pcsource <= "11"; -- salto direccion calculado
 							EscrituraRF <= '0'; -- Se guarda en el Register File el valor del PC

@@ -97,8 +97,14 @@ begin
 						
 						when "111101" => --restore
 								ALURESULT <= OPER1 + OPER2;
-					
-				    	when others => --nops
+						when "011011" => -- jmpl
+							ALURESULT <=OPER1 + OPER2;
+							
+						when "111110" => --st
+							ALURESULT <= OPER1 + OPER2;
+						when "111110" => --ld
+							ALURESULT <=OPER1 + OPER2;
+									when others => --nops
 				          ALURESULT<= x"00000000";
 	
 				end case;	

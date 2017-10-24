@@ -42,7 +42,7 @@ process(cRD,AluResult,Reset,WRENMEM) begin
 	if (Reset = '1') then
 		myReg <= (others => x"00000000");
 	else 
-		if (WRENMEM = '1' and 520>AluResult) then
+		if (WRENMEM = '1') then
 			myReg(conv_integer(AluResult)) <= cRD;
 		end if;
 		if(520>AluResult) then

@@ -30,6 +30,7 @@ begin
                 RAM <= (others=>"00000000000000000000000000000000");
 					 crs1 <="00000000000000000000000000000000";
 					 crs2 <="00000000000000000000000000000000";
+					 cRd <= "00000000000000000000000000000000";
              elsif rd /= "000000" and wre='1' then 
 					 RAM(conv_integer(rd)) <= dwr;
 					 crs1 <= RAM(conv_integer(rs1));
@@ -38,7 +39,7 @@ begin
 				 else 
                 crs1 <= RAM(conv_integer(rs1));
 					 crs2 <= RAM(conv_integer(rs2));
-					 cRd <= (others => '0');
+					 cRd <= RAM(conv_integer(rd));
             end if;
     end process;
 
