@@ -216,6 +216,7 @@ process(Op, Op2, Op3, icc, cond)
 						wrEnRF <= '1';
 						pcSource <="10";
 						AluOp <= "000010";
+						rfDest <= '0';
 					when "010010" => --Orcc
 						rfSource <= "01";
 						wrEnRF <= '1';
@@ -247,7 +248,7 @@ process(Op, Op2, Op3, icc, cond)
 						wrEnRF <= '1';
 						pcSource <="11";
 						AluOp <= "000000";
-						rfDest <= '0';
+						
 						
 					when "000111" => --XorN
 						rfSource <= "01";
