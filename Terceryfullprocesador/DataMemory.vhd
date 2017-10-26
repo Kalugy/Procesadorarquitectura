@@ -33,7 +33,7 @@ end DataMemory;
 
 architecture Behavioral of DataMemory is
 
-type reg is array (0 to 39) of std_logic_vector (31 downto 0);
+type reg is array (0 to 31) of std_logic_vector (31 downto 0);
 signal myReg : reg := (others => x"00000000");
 
 begin

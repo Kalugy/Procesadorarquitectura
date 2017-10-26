@@ -246,7 +246,8 @@ process(Op, Op2, Op3, icc, cond)
 						rfSource <= "10";
 						wrEnRF <= '1';
 						pcSource <="11";
-						AluOp <= "111111";
+						AluOp <= "000000";
+						rfDest <= '0';
 						
 					when "000111" => --XorN
 						rfSource <= "01";

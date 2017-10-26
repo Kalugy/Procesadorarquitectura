@@ -250,13 +250,12 @@ signal a13,a17: std_logic_vector(1 downto 0);
 
 begin
 
-	ints_NPC: NPC PORT MAP(
+	ints_NPC: PC PORT MAP(
 	
-			  inNPC => a1,
+           inPC => a1,
            Reset => Resetext,
            Clk => Clkinext,
-           outNPC => a2
-          
+           outPC => a2
 	);
 	
 	ints_PC: PC PORT MAP(
@@ -270,12 +269,18 @@ begin
 	
 	ints_sum: Sumador32bit PORT MAP(
 	
-			  Oper1 => a2,
+			  Oper1 => a5,
 			  Oper2 =>"00000000000000000000000000000001",
            Result => a3
           
 	);
+	ints_IM: IM PORT MAP(
 	
+			  Address => a5,
+           Reset => Resetext,
+           Instruction => a4
+          
+	);
 	ints_sumdisp30: Sumador32bit PORT MAP(
 	
 			  Oper1 => a31,
@@ -292,13 +297,7 @@ begin
           
 	);
 	
-	ints_IM: IM PORT MAP(
 	
-			  Address => a5,
-           Reset => Resetext,
-           Instruction => a4
-          
-	);
 	
 	ints_windowsmanager: Windowsmanager PORT MAP(
 		

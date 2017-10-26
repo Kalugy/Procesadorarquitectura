@@ -20,7 +20,7 @@ process(clk,nzvc,ncwp,rest)
 		if(rest = '1') then
 				cwp  <='0';
 				c <= '0';
-			
+				icc <= "0000";
 		elsif rising_edge(clk)  then
 			c<=nzvc(0);
 			cwp<=ncwp;

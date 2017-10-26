@@ -23,7 +23,8 @@ architecture Behavioral of RF is
 type ram_type is array (39 downto 0) of std_logic_vector (31 downto 0);
     signal RAM: ram_type;
 begin
-	 RAM(0)<= "00000000000000000000000000000000";
+	 RAM(0)<= "00000000000000000000000000000000";--serciora g0
+	 
     process (rst,rd,rs1,rs2,dwr,RAM,wre)
     begin
              if rst = '1' then
@@ -31,6 +32,7 @@ begin
 					 crs1 <="00000000000000000000000000000000";
 					 crs2 <="00000000000000000000000000000000";
 					 cRd <= "00000000000000000000000000000000";
+					 RAM(15)<= "00000000000000000000000000001101";
              elsif rd /= "000000" and wre='1' then 
 					 RAM(conv_integer(rd)) <= dwr;
 					 crs1 <= RAM(conv_integer(rs1));

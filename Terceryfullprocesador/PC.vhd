@@ -42,11 +42,10 @@ begin
 	begin
 		if(Reset = '1')then
 			outPC<="00000000000000000000000000000000";	
-		else 
-			if(rising_edge(Clk)) then
+		elsif(rising_edge(Clk)) then
 				outPC<=inPC;
-			end if;
 		end if;
+		
 	end process;
 end arqPC;
 
