@@ -40,7 +40,6 @@ entity MuxRF is
 end MuxRF;
 
 architecture Behavioral of MuxRF is
-signal nRD_Aux : STD_LOGIC_VECTOR (5 downto 0) := "000000";
 begin
 	process (Rd,O7,RFDEST) begin
 		
