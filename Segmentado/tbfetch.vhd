@@ -105,6 +105,14 @@ BEGIN
       CUentrada <= '1';
       Entradain <=  "00000000000000000000000000000101";
       wait for 100 ns;	
+		Reset <= '0';
+      CUentrada <= '0';
+      Entradain <=  "00000000000000000000000000000000";
+      wait for 100 ns;	
+		Reset <= '0';
+      CUentrada <= '1';
+      Entradain <=  "00000000000000000000000000000001";
+      wait for 100 ns;	
 
      
 

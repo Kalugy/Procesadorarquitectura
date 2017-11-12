@@ -32,7 +32,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity fetch is
     Port ( Clk : in  STD_LOGIC;
            Reset : in  STD_LOGIC;
-           CUentrada : in  STD_LOGIC;
+           CUentrada : in  STD_LOGIC_VECTOR(1 downto 0);
            Entradain : in  STD_LOGIC_VECTOR (31 downto 0);
            Instruccionout : out  STD_LOGIC_VECTOR (31 downto 0);
            PCout : out  STD_LOGIC_VECTOR (31 downto 0));
@@ -74,7 +74,7 @@ COMPONENT Mux2
 	PORT(
 			  Entrada : in  STD_LOGIC_VECTOR (31 downto 0);
            sumador : in  STD_LOGIC_VECTOR (31 downto 0);
-           Cuentrada : in  STD_LOGIC;
+           Cuentrada : in  STD_LOGIC_VECTOR (1 downto 0);
            posicion : out  STD_LOGIC_VECTOR (31 downto 0)
 		 );
 		END COMPONENT;			

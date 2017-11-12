@@ -39,10 +39,10 @@ entity Decode is
            ncwpout : out  STD_LOGIC;
            callout : out  STD_LOGIC_VECTOR (31 downto 0);
            ifout : out  STD_LOGIC_VECTOR (31 downto 0);
-           rfdestout : out  STD_LOGIC;
            rfsourceout : out  STD_LOGIC_VECTOR (1 downto 0);
            wrenmen : out  STD_LOGIC;
            pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
+			  Cuentrada : out  STD_LOGIC_VECTOR (1 downto 0);
            aluop : out  STD_LOGIC_VECTOR (5 downto 0);
 			  a18 : out  STD_LOGIC_VECTOR (31 downto 0);
            crs1out : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -160,6 +160,7 @@ signal a10,a20,a21,a31: std_logic_vector(31 downto 0);
 --nrs1,
 signal a8,a9,a26,a27: std_logic_vector(5 downto 0);
 
+signal a1: std_logic_vector(1 downto 0);
 signal a11,a12: STD_LOGIC;
 
 
@@ -213,12 +214,13 @@ begin
 			  rfSource =>rfsourceout,
 			  wrEnMem =>wrenmen,
            wrEnRF =>a11,	
-			  pcSource =>pcsource,
+			  pcSource =>a1,
            AluOp =>aluop
 			  
           
 	);
-	rfdestout<=a12;
+	Cuentrada<=a1;
+	pcsource<=a1;
 	ints_seu: SEU PORT MAP(
 	
 			  Instruction =>Instruction,
