@@ -25,6 +25,7 @@ begin
 			--reset instruction
 			elsif (op = "10" and op3 = "111101") then
 				cwpout <= '1';
+			else cwpout<='0';	
 			end if;
 			
 			--registros goli rs1
