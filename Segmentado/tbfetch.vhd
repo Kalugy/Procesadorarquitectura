@@ -43,7 +43,7 @@ ARCHITECTURE behavior OF tbfetch IS
     PORT(
          Clk : IN  std_logic;
          Reset : IN  std_logic;
-         CUentrada : IN  std_logic;
+         CUentrada : IN  std_logic_vector(1 downto 0);
          Entradain : IN  std_logic_vector(31 downto 0);
          Instruccionout : OUT  std_logic_vector(31 downto 0);
          PCout : OUT  std_logic_vector(31 downto 0)
@@ -54,7 +54,7 @@ ARCHITECTURE behavior OF tbfetch IS
    --Inputs
    signal Clk : std_logic := '0';
    signal Reset : std_logic := '0';
-   signal CUentrada : std_logic := '0';
+   signal CUentrada : std_logic_vector := '00';
    signal Entradain : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs

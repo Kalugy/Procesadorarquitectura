@@ -31,7 +31,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Union is
     Port ( Clk : in  STD_LOGIC;
-           reset : in  STD_LOGIC);
+           reset : in  STD_LOGIC;
+			  Salidaunion :out STD_LOGIC_VECTOR(31 downto 0)
+			  );
 end Union;
 
 architecture Behavioral of Union is
@@ -191,6 +193,8 @@ ints_writeback: Writeback PORT MAP(
            datatoreg =>a23
 			  
 	);
-
+	
+	Salidaunion<=a23;
+	
 end Behavioral;
 
