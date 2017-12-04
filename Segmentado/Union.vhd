@@ -98,13 +98,14 @@ COMPONENT Barra2
            rfsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
            wrenmenin : in  STD_LOGIC;
            pcsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
-			  Cuentradain :in  STD_LOGIC_VECTOR (1 downto 0);
+			  
            aluopin : in  STD_LOGIC_VECTOR (5 downto 0);
 			  a18in : in  STD_LOGIC_VECTOR (31 downto 0);
            crs1outin : in  STD_LOGIC_VECTOR (31 downto 0);
            op2outin : in  STD_LOGIC_VECTOR (31 downto 0);
 			  
-			  
+			  PCC : in  STD_LOGIC_VECTOR (31 downto 0);
+			  PCCout : out  STD_LOGIC_VECTOR (31 downto 0);	
 
 			  ncwpout : out  STD_LOGIC;
            callout : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -112,7 +113,7 @@ COMPONENT Barra2
            rfsourceout : out  STD_LOGIC_VECTOR (1 downto 0);
            wrenmen : out  STD_LOGIC;
            pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
-			  Cuentrada : out  STD_LOGIC_VECTOR (1 downto 0);
+			  
            aluop : out  STD_LOGIC_VECTOR (5 downto 0);
 			  a18 : out  STD_LOGIC_VECTOR (31 downto 0);
            crs1out : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -152,6 +153,10 @@ COMPONENT Barra3
            a18in : in  STD_LOGIC_VECTOR (31 downto 0);
            aluresultin : in  STD_LOGIC_VECTOR (31 downto 0);
            wrenmenin : in  STD_LOGIC;
+			  
+			  PCCin : in  STD_LOGIC_VECTOR (31 downto 0);
+			  PCCout : out  STD_LOGIC_VECTOR (31 downto 0);
+			  
            rfsource : in  STD_LOGIC_VECTOR (1 downto 0);
            nextpcout : out  STD_LOGIC_VECTOR (31 downto 0);
            a18inout : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -203,12 +208,12 @@ COMPONENT Writeback
 	END COMPONENT;
 
 signal a1,a2,a5,a9,a10,a18n,a16,a17,a20,a21,a22,a23,a60: std_logic_vector(31 downto 0);
-signal a4,a13,a15, a117,a118,a119,a130: std_logic_vector(1 downto 0);
+signal a4,a13,a15, a117,a118,a130,a139,a140: std_logic_vector(1 downto 0);
 signal a8: std_logic_vector(3 downto 0);
 signal a11,a126: std_logic_vector(5 downto 0);
-signal a6,a7,a14,a115,a116,a129,a140: std_logic;
+signal a6,a7,a14,a115,a116,a129: std_logic;
 
-signal a111,a112,a120,a121,a122,a123,a124,a125,a126,a127,a128,a131,a132: std_logic_vector(31 downto 0);
+signal a111,a112,a120,a121,a122,a123,a124,a125,a127,a128,a131,a132,a133,a138,a160,a180,a181: std_logic_vector(31 downto 0);
 
 begin ints_fetch: fetch PORT MAP(
 	
@@ -264,13 +269,14 @@ ints_barra2: Barra2 PORT MAP(
            rfsourcein =>a15,
            wrenmenin =>a14,
            pcsourcein =>a13,
-			  Cuentradain  =>a4,
+			  
            aluopin =>a11,
 			  a18in =>a18n,
            crs1outin =>a10,
            op2outin =>a9,
 			  
-			  
+			  PCC =>a111,
+			  PCCout =>a180,
 
 			  ncwpout =>a115,
            callout =>a120,
@@ -278,7 +284,7 @@ ints_barra2: Barra2 PORT MAP(
            rfsourceout =>a117,
            wrenmen =>a116,
            pcsource =>a118,
-			  Cuentrada =>a119,
+			  
            aluop =>a126,
 			  a18 =>a122,
            crs1out =>a123,
@@ -298,7 +304,7 @@ ints_execute: Execute PORT MAP(
            cwp =>a6,
            ncwp =>a7,
            icc =>a8,
-           nextpc =>a60,
+           nextpc =>a160,
            aluresult =>a20,
            Clkinext =>Clk,
            Resetext =>reset        
@@ -309,12 +315,17 @@ ints_Barra3: Barra3 PORT MAP(
 	
 			  Clk =>Clk,
            Reset =>reset,
+			  
            nextpc =>a60,
            a18in=> a122,
            aluresultin =>a20,
            wrenmenin =>a116,
            rfsource =>a117,
-           nextpcout =>a126,
+			  
+			  PCCin =>a180,
+			  PCCout =>a181,
+			  
+           nextpcout =>a138,
            a18inout =>a127,
            aluresultout =>a128,
            wrenmeninout =>a129,
@@ -322,12 +333,14 @@ ints_Barra3: Barra3 PORT MAP(
 	);
 
 ints_memory: Memory PORT MAP(
-	
+			  Resetext  =>reset,
+			  
+			  
 			  a18in=>a127,
            aluresultin =>a128,
-           datatomenout =>a21,
            wrenmenin =>a129,
-			  Resetext  =>reset,
+			  
+			  datatomenout =>a21,
            aluresultout =>a128
 	);
 
@@ -339,20 +352,21 @@ ints_Barra4: Barra4 PORT MAP(
            
            datatomenin =>a21,
            aluresultin =>a128,
-           pcin =>a126,
+           pcin =>a181,
            rfsourcein =>a130,  
-           rfsource =>a140,  
+           
 			  datatomenout =>a131,
 			  aluresultout =>a133,
-           pcout=>a132
+           pcout=>a132,
+			  rfsource =>a139
 	);
 
 ints_writeback: Writeback PORT MAP(
 	
 			  datatomenin =>a131,
-           aluresultin =>a22,
+           aluresultin =>a133,
            pc =>a132,
-           rfsourcein =>a140,
+           rfsourcein =>a139,
            datatoreg =>a23
 			  
 	);
