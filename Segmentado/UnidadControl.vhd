@@ -29,6 +29,7 @@ entity UnidadControl is
 			  icc: in STD_LOGIC_VECTOR (3 downto 0);
 			  cond: in STD_LOGIC_VECTOR (3 downto 0);		  
 			  rfDest : out  STD_LOGIC;
+			  Reset : in  STD_LOGIC;
 			  rfSource : out  STD_LOGIC_VECTOR (1 downto 0);
 			  wrEnMem : out  STD_LOGIC;
            wrEnRF : out  STD_LOGIC;	
@@ -40,12 +41,19 @@ end UnidadControl;
 architecture Behavioral of UnidadControl is
 
 begin
-process(Op, Op2, Op3, icc, cond)
+process(Op, Op2, Op3, icc, cond,Reset)
 	begin	
 	wrEnMem <= '0';
 	rfDest <= '0';
 	
-	if(op = "01")then --CALL
+	if(Reset = '1')then 
+		rfDest <= '0';
+		rfSource <= "00";
+		wrEnRF <= '0';
+		pcSource <= "10";
+		AluOp <= "111111";
+	
+	elsif(op = "01")then --CALL
 		rfDest <= '1';
 		rfSource <= "10";
 		wrEnRF <= '1';
@@ -146,6 +154,7 @@ process(Op, Op2, Op3, icc, cond)
 					AluOp <= "111111";
 				end if;
 			end if;
+			
 		else
 			if(Op = "10")then
 				case Op3 is

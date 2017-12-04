@@ -52,6 +52,18 @@ COMPONENT fetch
 	END COMPONENT;	
 
 
+COMPONENT Barra1
+	PORT(
+			  Clk : in  STD_LOGIC;
+           Reset : in  STD_LOGIC;
+           instrutin : in  STD_LOGIC_VECTOR (31 downto 0);
+           PCin : in  STD_LOGIC_VECTOR (31 downto 0);
+           instrutout : out  STD_LOGIC_VECTOR (31 downto 0);
+           PCout : out  STD_LOGIC_VECTOR (31 downto 0)
+           	
+		);
+	END COMPONENT;	
+
 COMPONENT Decode
 	PORT(
 			  Instruction : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -74,6 +86,43 @@ COMPONENT Decode
            	
 		);
 	END COMPONENT;	
+	
+COMPONENT Barra2
+	PORT(
+			  Clk : in  STD_LOGIC;
+           Reset : in  STD_LOGIC;
+			  
+			  ncwpin : in  STD_LOGIC;
+           callin : in  STD_LOGIC_VECTOR (31 downto 0);
+           ifin : in  STD_LOGIC_VECTOR (31 downto 0);
+           rfsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
+           wrenmenin : in  STD_LOGIC;
+           pcsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
+			  Cuentradain :in  STD_LOGIC_VECTOR (1 downto 0);
+           aluopin : in  STD_LOGIC_VECTOR (5 downto 0);
+			  a18in : in  STD_LOGIC_VECTOR (31 downto 0);
+           crs1outin : in  STD_LOGIC_VECTOR (31 downto 0);
+           op2outin : in  STD_LOGIC_VECTOR (31 downto 0);
+			  
+			  
+
+			  ncwpout : out  STD_LOGIC;
+           callout : out  STD_LOGIC_VECTOR (31 downto 0);
+           ifout : out  STD_LOGIC_VECTOR (31 downto 0);
+           rfsourceout : out  STD_LOGIC_VECTOR (1 downto 0);
+           wrenmen : out  STD_LOGIC;
+           pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
+			  Cuentrada : out  STD_LOGIC_VECTOR (1 downto 0);
+           aluop : out  STD_LOGIC_VECTOR (5 downto 0);
+			  a18 : out  STD_LOGIC_VECTOR (31 downto 0);
+           crs1out : out  STD_LOGIC_VECTOR (31 downto 0);
+           op2out : out  STD_LOGIC_VECTOR (31 downto 0)
+           	
+		);
+	END COMPONENT;		
+	
+	
+	
 COMPONENT Execute
 	PORT(
 			  callin : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -118,10 +167,12 @@ COMPONENT Writeback
 	END COMPONENT;
 
 signal a1,a2,a5,a9,a10,a18n,a16,a17,a20,a21,a22,a23,a60: std_logic_vector(31 downto 0);
-signal a4,a13,a15: std_logic_vector(1 downto 0);
+signal a4,a13,a15, a117,a118,a119: std_logic_vector(1 downto 0);
 signal a8: std_logic_vector(3 downto 0);
-signal a11: std_logic_vector(5 downto 0);
-signal a6,a7,a14: std_logic;
+signal a11,a126: std_logic_vector(5 downto 0);
+signal a6,a7,a14,a115,a116: std_logic;
+
+signal a111,a112,a120,a121,a122,a123,a124,a125: std_logic_vector(31 downto 0);
 
 begin ints_fetch: fetch PORT MAP(
 	
@@ -134,11 +185,21 @@ begin ints_fetch: fetch PORT MAP(
          
 	);
 	
+ints_barra1: Barra1 PORT MAP(
+	
+			  Clk =>Clk,
+           Reset =>reset,
+           instrutin =>a2,
+           PCin =>a1,
+           instrutout =>a112,
+           PCout =>a111
+         
+	);	
 
 ints_decode: Decode PORT MAP(
 	
-			  Instruction =>a2,
-           posicionin =>a1,
+			  Instruction =>a112,
+           posicionin =>a111,
            Regtomemin =>a23,
            cwpin =>a6,
 			  iccin =>a8,
@@ -156,14 +217,48 @@ ints_decode: Decode PORT MAP(
            op2out =>a9
 	);
 	
+ints_barra2: Barra2 PORT MAP(
+	
+			  Clk =>Clk,
+           Reset =>reset,
+           
+			  ncwpin =>a7,
+           callin =>a17, 
+           ifin =>a16,
+           rfsourcein =>a15,
+           wrenmenin =>a14,
+           pcsourcein =>a13,
+			  Cuentradain  =>a4,
+           aluopin =>a11,
+			  a18in =>a18n,
+           crs1outin =>a10,
+           op2outin =>a9,
+			  
+			  
+
+			  ncwpout =>a115,
+           callout =>a120,
+           ifout =>a121,
+           rfsourceout =>a117,
+           wrenmen =>a116,
+           pcsource =>a118,
+			  Cuentrada =>a119,
+           aluop =>a126,
+			  a18 =>a122,
+           crs1out =>a123,
+           op2out =>a124
+           	
+         
+	);		
+	
 ints_execute: Execute PORT MAP(
 	
-			  callin =>a17,
-           ifin =>a16,
-           pcsourcein =>a13,
-           aluopin =>a11,
-           op1in =>a10,
-           op2in =>a9,
+			  callin =>a120,
+           ifin =>a121,
+           pcsourcein =>a118,
+           aluopin =>a126,
+           op1in =>a123,
+           op2in =>a124,
            cwp =>a6,
            ncwp =>a7,
            icc =>a8,

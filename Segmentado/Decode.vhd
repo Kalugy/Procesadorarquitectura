@@ -68,6 +68,7 @@ COMPONENT UnidadControl
            op2 : in  STD_LOGIC_VECTOR (2 downto 0);
            cond : in  STD_LOGIC_VECTOR (3 downto 0);
            icc : in  STD_LOGIC_VECTOR (3 downto 0);
+			  Reset : in  STD_LOGIC;
            rfDest : out  STD_LOGIC;
 			  rfSource : out  STD_LOGIC_VECTOR (1 downto 0);
 			  wrEnMem : out  STD_LOGIC;
@@ -210,6 +211,7 @@ begin
            op2 =>Instruction(24 downto 22),
            cond =>Instruction(28 downto 25),
            icc =>iccin,
+			  Reset =>Resetext,
            rfDest  =>a12,
 			  rfSource =>rfsourceout,
 			  wrEnMem =>wrenmen,
