@@ -38,6 +38,8 @@ entity Execute is
            op2in : in  STD_LOGIC_VECTOR (31 downto 0);
            cwp : out  STD_LOGIC;
            ncwp : in  STD_LOGIC;
+			  
+			  
            icc : out  STD_LOGIC_VECTOR (3 downto 0);
            nextpc : out  STD_LOGIC_VECTOR (31 downto 0);
            aluresult : out  STD_LOGIC_VECTOR (31 downto 0);

@@ -41,6 +41,10 @@ entity Decode is
            ifout : out  STD_LOGIC_VECTOR (31 downto 0);
            rfsourceout : out  STD_LOGIC_VECTOR (1 downto 0);
            wrenmen : out  STD_LOGIC;
+			  
+			  RD : in STD_LOGIC_VECTOR (5 downto 0);
+			  RDout : out  STD_LOGIC_VECTOR (5 downto 0);	
+			  
            pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
 			  Cuentrada : out  STD_LOGIC_VECTOR (1 downto 0);
            aluop : out  STD_LOGIC_VECTOR (5 downto 0);
@@ -187,7 +191,7 @@ begin
 	
 			  rs1 => a9,
            rs2 => a26,
-           rd => a27,
+           rd => RD,
            dwr => Regtomemin,
            rst => Resetext,
 			  wre => a11,
@@ -205,6 +209,10 @@ begin
            nRD => a27
          
 	);
+	
+	RDout <=a27;
+	
+	
 	ints_CU: UnidadControl PORT MAP(
 			  op =>Instruction(31 downto 30),
            op3 =>Instruction(24 downto 19),
@@ -223,6 +231,8 @@ begin
 	);
 	Cuentrada<=a1;
 	pcsource<=a1;
+	
+	
 	ints_seu: SEU PORT MAP(
 	
 			  Instruction =>Instruction,

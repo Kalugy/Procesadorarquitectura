@@ -49,7 +49,7 @@ COMPONENT MuxDM
 		);
 	END COMPONENT;		
 
-
+signal a999: std_logic_vector(31 downto 0);
 
 
 begin ints_muxdatamemory: MuxDM PORT MAP(
@@ -58,11 +58,11 @@ begin ints_muxdatamemory: MuxDM PORT MAP(
            AluResult => aluresultin,
            PC => pc,
            RFSC => rfsourcein,
-           DWR => datatoreg
+           DWR => a999
          
 	);
 	
-	
+	datatoreg<=a999;
 
 end Behavioral;
 
