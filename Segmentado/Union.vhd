@@ -114,6 +114,9 @@ COMPONENT Barra2
 
 			  RD : in  STD_LOGIC_VECTOR (5 downto 0);
 			  RDout : out  STD_LOGIC_VECTOR (5 downto 0);
+			  
+			  Cuentradain : in  STD_LOGIC_VECTOR (1 downto 0);	 
+			  Cuentradaout : out  STD_LOGIC_VECTOR (1 downto 0);	
 
 			  ncwpout : out  STD_LOGIC;
            callout : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -222,20 +225,20 @@ COMPONENT Writeback
 	END COMPONENT;
 
 signal a1,a2,a5,a9,a10,a18n,a16,a17,a20,a21,a22,a23,a60: std_logic_vector(31 downto 0);
-signal a4,a13,a15, a117,a118,a130,a139,a140: std_logic_vector(1 downto 0);
+signal a4,a13,a15, a117,a118,a130,a139,a140a,a555: std_logic_vector(1 downto 0);
 signal a8: std_logic_vector(3 downto 0);
 signal a11,a126,a183,a184,a185,a186: std_logic_vector(5 downto 0);
 signal a6,a7,a14,a115,a116,a129: std_logic;
 
 signal a111,a112,a120,a121,a122,a123,a124,a125,a127,a128: std_logic_vector(31 downto 0);
 
-signal a131,a132,a133,a138,a160,a180,a181,a182,a191: std_logic_vector(31 downto 0);
+signal a131,a132,a133,a138,a160,a180,a181,a182,a191,a668: std_logic_vector(31 downto 0);
 
 begin ints_fetch: fetch PORT MAP(
 	
 			  Clk =>Clk,
            Reset =>reset,
-           CUentrada =>a13,
+           CUentrada =>a555,
            Entradain =>a60,
            Instruccionout =>a2,
            PCout =>a1
@@ -300,6 +303,9 @@ ints_barra2: Barra2 PORT MAP(
 				
            RD =>a183,
 			  RDout =>a184,
+			  
+			  Cuentradain =>a13, 
+			  Cuentradaout =>a555,	
 
 			  ncwpout =>a115,
            callout =>a120,
@@ -352,7 +358,7 @@ ints_Barra3: Barra3 PORT MAP(
 			  RDout =>a185,
 			  
            a18inout =>a127,
-           aluresultout =>a128,
+           aluresultout =>a668,
            wrenmeninout =>a129,
            rfsourceout =>a130     
 	);
@@ -362,7 +368,7 @@ ints_memory: Memory PORT MAP(
 			  
 			  
 			  a18in=>a127,
-           aluresultin =>a128,
+           aluresultin =>a668,
            wrenmenin =>a129,
 			  
 			  datatomenout =>a21,

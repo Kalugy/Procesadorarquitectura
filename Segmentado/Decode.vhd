@@ -45,6 +45,9 @@ entity Decode is
 			  RD : in STD_LOGIC_VECTOR (5 downto 0);
 			  RDout : out  STD_LOGIC_VECTOR (5 downto 0);	
 			  
+			  
+			  
+			  
            pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
 			  Cuentrada : out  STD_LOGIC_VECTOR (1 downto 0);
            aluop : out  STD_LOGIC_VECTOR (5 downto 0);
