@@ -194,8 +194,7 @@ COMPONENT Barra4
 	PORT(
 			  Clk : in  STD_LOGIC;
            Reset : in  STD_LOGIC;
-           datatomenout : out  STD_LOGIC_VECTOR (31 downto 0);
-           aluresultout : out  STD_LOGIC_VECTOR (31 downto 0);
+           
            datatomenin : in  STD_LOGIC_VECTOR (31 downto 0);
            aluresultin : in  STD_LOGIC_VECTOR (31 downto 0);
            pcin : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -203,6 +202,8 @@ COMPONENT Barra4
 			  RDout : out  STD_LOGIC_VECTOR (5 downto 0);
            rfsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
            rfsource : out  STD_LOGIC_VECTOR (1 downto 0);
+			  datatomenout : out  STD_LOGIC_VECTOR (31 downto 0);
+           aluresultout : out  STD_LOGIC_VECTOR (31 downto 0);
            pcout : out  STD_LOGIC_VECTOR (31 downto 0)
            	
 		);
@@ -388,10 +389,10 @@ ints_Barra4: Barra4 PORT MAP(
 	);
 	
 ints_writeback: Writeback PORT MAP(
-	
+				pc =>a132,
 			  datatomenin =>a191,
            aluresultin =>a133,
-           pc =>a132,
+           
            rfsourcein =>a139,
            datatoreg =>a23
 			  
