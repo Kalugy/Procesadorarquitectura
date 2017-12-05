@@ -39,21 +39,28 @@ entity Barra2 is
            rfsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
            wrenmenin : in  STD_LOGIC;
            pcsourcein : in  STD_LOGIC_VECTOR (1 downto 0);
-			  Cuentradain :in  STD_LOGIC_VECTOR (1 downto 0);
+			  
            aluopin : in  STD_LOGIC_VECTOR (5 downto 0);
 			  a18in : in  STD_LOGIC_VECTOR (31 downto 0);
            crs1outin : in  STD_LOGIC_VECTOR (31 downto 0);
            op2outin : in  STD_LOGIC_VECTOR (31 downto 0);
 			  
-			 
+			  PCC : in  STD_LOGIC_VECTOR (31 downto 0);
+			  PCCout : out  STD_LOGIC_VECTOR (31 downto 0);	
+	        
+			  RD : in STD_LOGIC_VECTOR (5 downto 0);
+			  RDout : out  STD_LOGIC_VECTOR (5 downto 0);		
 
+			  Cuentradain : in  STD_LOGIC_VECTOR (1 downto 0);	 
+			  Cuentradaout : out  STD_LOGIC_VECTOR (1 downto 0);	
+			  
 			  ncwpout : out  STD_LOGIC;
            callout : out  STD_LOGIC_VECTOR (31 downto 0);
            ifout : out  STD_LOGIC_VECTOR (31 downto 0);
            rfsourceout : out  STD_LOGIC_VECTOR (1 downto 0);
            wrenmen : out  STD_LOGIC;
            pcsource : out  STD_LOGIC_VECTOR (1 downto 0);
-			  Cuentrada : out  STD_LOGIC_VECTOR (1 downto 0);
+			 
            aluop : out  STD_LOGIC_VECTOR (5 downto 0);
 			  a18 : out  STD_LOGIC_VECTOR (31 downto 0);
            crs1out : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -64,7 +71,7 @@ architecture Behavioral of Barra2 is
 
 begin
 	process(Clk,Reset,ncwpin ,callin ,ifin,rfsourcein ,wrenmenin ,pcsourcein ,
-			  Cuentradain , aluopin,a18in ,crs1outin ,op2outin ) 
+			   aluopin,a18in ,crs1outin ,op2outin,PCC,RD,Cuentradain ) 
 	begin
 		if reset='1' then
 			 ncwpout <= '0';
@@ -73,11 +80,13 @@ begin
 			 rfsourceout <= "00";
 			 wrenmen <= '0';
 			 pcsource <= "00";
-			 Cuentrada <= "00";
+			 Cuentradaout<= "00";
 			 aluop<= "000000";
 			 a18 <= "00000000000000000000000000000000";
 			 crs1out <= "00000000000000000000000000000000";
 			 op2out<= "00000000000000000000000000000000";
+			 PCCout<= "00000000000000000000000000000000";
+			 RDout <= "000000";
 		elsif(rising_edge(Clk)) then
 			 ncwpout <= ncwpin;
 			 callout <= callin;
@@ -85,11 +94,13 @@ begin
 			 rfsourceout <= rfsourcein;
 			 wrenmen <= wrenmenin;
 			 pcsource <= pcsourcein;
-			 Cuentrada <= Cuentradain ;
+			 RDout<= RD;
+			 Cuentradaout<= Cuentradain ;
 			 aluop<=aluopin;
 			 a18 <= a18in;
 			 crs1out <= crs1outin;
 			 op2out<= op2outin;
+			 PCCout<=PCC;
 		end if;
 	
 	end process;

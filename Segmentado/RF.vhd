@@ -32,7 +32,7 @@ begin
 					 crs1 <="00000000000000000000000000000000";
 					 crs2 <="00000000000000000000000000000000";
 					 cRd <= "00000000000000000000000000000000";
-					 RAM(15)<= "00000000000000000000000000001111";--por el jmpl para que lea el main
+					 RAM(15)<= "00000000000000000000000000010110";--por el jmpl para que lea el main
              elsif rd /= "000000" and wre='1' and rd /= "001111" then 
 					 RAM(conv_integer(rd)) <= dwr;
 					 crs1 <= RAM(conv_integer(rs1));

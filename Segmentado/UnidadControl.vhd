@@ -149,7 +149,7 @@ process(Op, Op2, Op3, icc, cond,Reset)
 			else
 				if(Op2 = "100")then -- NOP
 					rfSource <= "01";
-					wrEnRF <= '0';
+					wrEnRF <= '0';--oleacaloquesabe
 					pcSource <="10";
 					AluOp <= "111111";
 				end if;
