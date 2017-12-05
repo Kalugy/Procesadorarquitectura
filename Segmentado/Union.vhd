@@ -224,10 +224,12 @@ COMPONENT Writeback
 signal a1,a2,a5,a9,a10,a18n,a16,a17,a20,a21,a22,a23,a60: std_logic_vector(31 downto 0);
 signal a4,a13,a15, a117,a118,a130,a139,a140: std_logic_vector(1 downto 0);
 signal a8: std_logic_vector(3 downto 0);
-signal a11,a126: std_logic_vector(5 downto 0);
+signal a11,a126,a183,a184,a185,a186: std_logic_vector(5 downto 0);
 signal a6,a7,a14,a115,a116,a129: std_logic;
 
-signal a111,a112,a120,a121,a122,a123,a124,a125,a127,a128,a131,a132,a133,a138,a160,a180,a181,a182,a183,a184,a185,186,a191: std_logic_vector(31 downto 0);
+signal a111,a112,a120,a121,a122,a123,a124,a125,a127,a128: std_logic_vector(31 downto 0);
+
+signal a131,a132,a133,a138,a160,a180,a181,a182,a191: std_logic_vector(31 downto 0);
 
 begin ints_fetch: fetch PORT MAP(
 	
